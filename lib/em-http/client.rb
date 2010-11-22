@@ -823,12 +823,7 @@ module EventMachine
     end
 
     def process_body
-      if @bytes_remaining.nil?
-        on_body_data @data.read
-        return false
-      end
-
-      if @bytes_remaining.zero?
+      if @bytes_remaining.nil? || @bytes_remaining.zero?
         @state = :finished
         on_request_complete
         return false
